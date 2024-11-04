@@ -59,12 +59,50 @@ turtle.eat()
 turtle.how_old()
 
 def animal_sound(animals):
-    print(animals.make_sound())
+    for animal in animals:
+        animal.make_sound()
 
-dog = Animal
-popka = Bird
-tortoises = Turtle
+class Zoo:
+    def __init__(self):
+        self.animals = []
+        self.staff = []
 
-animal_sound(dog)
-animal_sound(popka)
-animal_sound(tortoises)
+    def add_animal(self, animal):
+        self.animals.append(animal)
+        print(f"Животное {animal.name} добавлено в зоопарк.")
+
+    def add_staff(self, staff_member):
+        self.staff.append(staff_member)
+        print(f"Сотрудник {staff_member.name} добавлен в зоопарк.")
+
+class Staff:
+    def __init__(self, name):
+        self.name = name
+
+class ZooKeeper(Staff):
+    def feed_animal(self, animal):
+        print(f"{self.name} кормит {animal.name}.")
+
+class Veterinarian(Staff):
+    def heal_animal(self, animal):
+        print(f"{self.name} лечит {animal.name}.")
+
+# Создание списка животных и демонстрация полиморфизма
+animals = [cat, bird, turtle]
+animal_sound(animals)
+
+# Создание зоопарка и добавление животных и сотрудников
+zoo = Zoo()
+zoo.add_animal(cat)
+zoo.add_animal(bird)
+zoo.add_animal(turtle)
+
+# Создание сотрудников и добавление их в зоопарк
+zookeeper = ZooKeeper("Alice")
+veterinarian = Veterinarian("Bob")
+zoo.add_staff(zookeeper)
+zoo.add_staff(veterinarian)
+
+# Использование методов сотрудников
+zookeeper.feed_animal(cat)
+veterinarian.heal_animal(bird)
